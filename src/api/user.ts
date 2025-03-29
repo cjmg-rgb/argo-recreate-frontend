@@ -1,7 +1,5 @@
 import { IUser } from "~/utils/types";
 import apiClient from "./apiClient"
-import axios from "axios";
-import useAuthStore from "~/store/useAuthStore";
 
 export const getUser = async (): Promise<IUser> => {
     try {

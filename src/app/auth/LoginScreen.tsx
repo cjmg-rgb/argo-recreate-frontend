@@ -1,13 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { View, Image, KeyboardAvoidingView, Platform, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginFormInput, loginFormValidation } from '~/utils/validations';
-import { z } from 'zod';
-import { loginClient } from '~/api/auth';
 import Toast from 'react-native-toast-message';
 import { useLogin } from '~/hooks/auth/useLogin';
 

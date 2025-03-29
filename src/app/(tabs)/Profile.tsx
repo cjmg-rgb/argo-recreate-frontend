@@ -26,7 +26,7 @@ const Profile = () => {
       <View className="flex-1 bg-gray-100">
         <View className=" p-6 rounded-b-3xl items-center bg-['#1f2937']">
           <Image
-            source={ require("@/assets/images/logo.png") } // Replace with actual user image
+            source={ require("@/assets/images/logo.png") }
             className="w-24 h-24 rounded-full border-4 border-white"
           />
           <Text className="text-white text-xl font-bold mt-2">{ user?.name }</Text>
