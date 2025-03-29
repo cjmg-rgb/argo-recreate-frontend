@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useGetUser } from '~/hooks/user/useGetUser'
 import { IconButton } from 'react-native-paper';
 import { useLogout } from '~/hooks/auth/useLogout';
+import { BlurView } from 'expo-blur';
 
 const Profile = () => {
 
@@ -21,9 +22,13 @@ const Profile = () => {
   const departmentName = user?.department.name === "Information Technology Department" ? "IT Department" : user?.department.name;
 
   return (
-    <SafeAreaView className='flex-1'>
-
-      <View className="flex-1 bg-gray-100">
+    <SafeAreaView className='flex-1' edges={["top"]}>
+      <View className="flex-1 bg-gray-100 relative">
+        <Image
+          source={ require("@/assets/images/login-bg.jpg") }
+          className="absolute h-full w-full"
+        />
+        <BlurView intensity={15} tint="light" className="absolute h-full w-full" />
         <View className=" p-6 rounded-b-3xl items-center bg-['#1f2937']">
           <Image
             source={ require("@/assets/images/logo.png") }
@@ -48,7 +53,7 @@ const Profile = () => {
             
           </View>
         </View>
-
+        
         <TouchableOpacity className="p-4 rounded-full mx-6 mt-8 items-center bg-red-500" onPress={() => logout()}>
           <Text className="text-white text-lg font-semibold">LOGOUT</Text>
         </TouchableOpacity>

@@ -21,6 +21,7 @@ const TabsLayout = () => {
           shadowOpacity: 0.1,
           shadowRadius: 10,
           elevation: 5,
+          position: "absolute"
         },
       }}
     >
