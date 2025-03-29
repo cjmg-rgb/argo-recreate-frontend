@@ -9,11 +9,13 @@ const authStoreState: StateCreator<IAuth> = (set, get) => ({
     updateCredits() {
 
     },
-    setCredentials(credentials, token) {
+    async setCredentials(credentials, token) {
         set({ auth: credentials, token })
+        await AsyncStorage.setItem("token", token);
     },
-    removeCredentials() {
+    async removeCredentials() {
         set({ auth: null, token: null })
+        await AsyncStorage.removeItem("token");
     }
 });
 

@@ -6,7 +6,7 @@ const MyBookings = () => {
   return (
     <SafeAreaView>
         <View>
-        <Text>MyBookings</Text>
+          <Text>Tab [Home|MyBookings]</Text>
         </View>
     </SafeAreaView>
   )

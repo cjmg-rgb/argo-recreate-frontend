@@ -70,8 +70,8 @@ export interface IAuth {
   auth: IUser | null;
   token: string | null;
   updateCredits: (newCredits: number) => void;
-  setCredentials: (credentials: IUser, token: string) => void;
-  removeCredentials: () => void;
+  setCredentials: (credentials: IUser, token: string) => Promise<void>;
+  removeCredentials: () => Promise<void>;
 }
 
 export interface IUsers {

@@ -35,9 +35,6 @@ const LoginScreen = () => {
       })
     }
   };
-  const onError: SubmitErrorHandler<loginFormInput> = (errors) => {
-    
-  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -118,7 +115,7 @@ const LoginScreen = () => {
               {errors && <Text className='text-red-200'>{ errors.password?.message}</Text>}
             </View>
             <View>
-              <Button mode="contained"  buttonColor='rgba(0, 120, 240, 0.9)' onPress={handleSubmit(onSubmit, onError)}>
+              <Button mode="contained"  buttonColor='rgba(0, 120, 240, 0.9)' onPress={handleSubmit(onSubmit)}>
                 LOGIN
               </Button>
 
