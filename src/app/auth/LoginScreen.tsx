@@ -23,6 +23,7 @@ const LoginScreen = () => {
   });
 
   const onSubmit: SubmitHandler<loginFormInput> = async (data: loginFormInput) => {
+    
     try {
       login(data);
     } catch(error) {

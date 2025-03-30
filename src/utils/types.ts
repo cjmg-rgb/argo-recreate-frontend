@@ -1,6 +1,5 @@
 
 import { AxiosError } from "axios";
-
 export interface IRequestError extends AxiosError<{ message: string }> {}
 
 export type TActiveModal = "details" | "deleteConfirmation" | "edit" | "successEdit";
@@ -14,6 +13,7 @@ export interface IAddBookingForm {
   carId: string | null;
   instruction: string;
 }
+
 
 export interface IEditBookingForm extends IAddBookingForm {
   id: string;
