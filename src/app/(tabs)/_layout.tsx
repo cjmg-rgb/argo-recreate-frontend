@@ -26,7 +26,7 @@ const TabsLayout = () => {
       }}
     >
       <Tabs.Screen
-        name="Home"
+        name="bookings"
         options={{
           tabBarIcon: ({ color, focused }) => (
             <TabIcon name="home" color={color} focused={focused} />

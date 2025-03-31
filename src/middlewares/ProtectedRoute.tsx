@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }: React.PropsWithChildren) => {
             if(!token) {
                 router.replace("/auth/LoginScreen")
             } else {
-                router.replace("/Home")
+                router.replace("/bookings")
             }
         }    
         getAuth();

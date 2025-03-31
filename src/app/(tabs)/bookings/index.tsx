@@ -7,14 +7,18 @@ import useAuthStore from '~/store/useAuthStore';
 import { IBooking } from '~/utils/types';
 import { format } from 'date-fns';
 import moment from 'moment';
+import { useRouter, Link } from 'expo-router';
+import Booking from './Booking';
+import { useBookingStore } from '~/store/useBookingStore';
 
 const BookingScreen = () => {
 
   const { data: bookings } = useGetUserBookings();
   const { auth } = useAuthStore();
 
-  const [searchQuery, setSearchQuery] = React.useState('');
-
+  const [searchQuery, setSearchQuery] = React.useState('')
+  const { setBooking } = useBookingStore();
+  const router = useRouter();
 
 
   const renderItem = (item: IBooking) => { 
@@ -47,8 +51,13 @@ const BookingScreen = () => {
         />
         <Card.Content>
           <Text className="text-gray-600 mb-2">{item.instruction}</Text>
-          <Button icon="chevron-right" className="self-end" textColor="#4f46e5">
-            View Details
+          <Button icon="chevron-right" className="self-end" textColor="#4f46e5"
+            onPress={() => {
+                setBooking(item);
+                router.push("/bookings/Booking");
+            }} 
+          >
+                View Details
           </Button>
         </Card.Content>
       </Card>

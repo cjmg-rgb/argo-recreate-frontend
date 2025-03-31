@@ -126,8 +126,7 @@ const MyBookings = () => {
                         onPress={() => Toast.show({ type: "success", text1: "Valid Day" })}
                       >
                         <Text> { value.toLocaleDateString() } </Text>
-                      </RNButton> : 
-                      "Select a Date" }
+                      </RNButton> : <Text>Select a Date</Text> }
                     </View>
                     { dateError && <Text className='text-red-500 text-center'>{ dateError }</Text>}
                     
