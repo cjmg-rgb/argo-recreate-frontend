@@ -49,6 +49,14 @@ const TabsLayout = () => {
           ),
         }}
       />
+      <Tabs.Screen
+        name="Test"
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <TabIcon name="wrench" color={color} focused={focused} />
+          ),
+        }}
+      />
     </Tabs>
   );
 };

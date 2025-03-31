@@ -101,6 +101,17 @@ const MyBookings = () => {
                           setDateError(null);
                         }
                       }}
+                      theme={{
+                        backgroundColor: '#1f2937',
+                        calendarBackground: '#1f2937',
+                        textSectionTitleColor: '#9ca3af',
+                        dayTextColor: '#f3f4f6',
+                        todayTextColor: '#4f46e5',
+                        selectedDayBackgroundColor: '#4f46e5',
+                        selectedDayTextColor: '#ffffff',
+                        arrowColor: '#4f46e5',
+                        monthTextColor: '#e5e7eb',
+                      }}
                       
                     />
                     <View className='justify-center items-center'>{ 
@@ -114,7 +125,7 @@ const MyBookings = () => {
                         }}
                         onPress={() => Toast.show({ type: "success", text1: "Valid Day" })}
                       >
-                        { value.toLocaleDateString() }
+                        <Text> { value.toLocaleDateString() } </Text>
                       </RNButton> : 
                       "Select a Date" }
                     </View>
@@ -258,7 +269,9 @@ const MyBookings = () => {
                               textColor={`${ driver.car?.colorTag.label }`}
                               
                             >
-                              { driver.name }
+                              <Text>
+                                { driver.name }
+                              </Text>
                             </RNButton>
                           </View>
                         ))
@@ -340,10 +353,19 @@ const MyBookings = () => {
                 </View>
               }
               { 
-                watch("instruction") && 
-                <TouchableOpacity className="p-4 rounded-full mx-6 my-8 items-center bg-blue-500" onPress={handleSubmit(onSubmit)}>
-                  <Text className="text-white text-lg font-semibold">Book a Car</Text>
-                </TouchableOpacity>
+                watch("instruction") && !dateError &&
+                <View>
+                  <RNButton
+                    icon="car"
+                    mode="contained"
+                    buttonColor="#0078F0"
+                    textColor="#ffffff"
+                    onPress={handleSubmit(onSubmit)}
+                    className='px-4 py-2'
+                  >
+                    Book A Car
+                  </RNButton>
+                </View>
               }
             </View>
           </TouchableWithoutFeedback>

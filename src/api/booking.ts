@@ -20,3 +20,14 @@ export const getAllBookings = async (): Promise<IBookings> => {
         return error;
     }
 };
+
+export const getUserBookings = async (): Promise<IBookings> => {
+    try {
+        const response = await apiClient.get("bookings/my-bookings");
+        return response.data.data;
+    } catch(error: any){
+        console.log(error.response.data.message);
+        return error;
+    } 
+
+}
