@@ -1,16 +1,16 @@
 // BookingInfo.tsx
-import React from 'react';
 import { View, Text, Alert, ScrollView, Linking, Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Card, Divider, IconButton } from 'react-native-paper';
-import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useBookingStore } from '~/store/useBookingStore';
 import moment from 'moment';
 import { format } from 'date-fns';
+import { useDeleteBooking } from '~/hooks/booking/useDeleteBooking';
+import { useRouter } from 'expo-router';
 
 const Booking = () => {
     const router = useRouter();
     const { booking } = useBookingStore();
+    const { mutate: deleteBooking } = useDeleteBooking();
 
     if(!booking) {
         return router.push("/bookings");
@@ -36,7 +36,10 @@ const Booking = () => {
       "Are you sure you want to delete this booking?",
       [
         { text: "Cancel", style: "cancel" },
-        { text: "Delete", style: "destructive", onPress: () => console.log("Deleted") }
+        { text: "Delete", style: "destructive", onPress: () => {
+          deleteBooking(booking.id);
+          router.back();
+        }}
       ]
     );
   };

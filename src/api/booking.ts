@@ -31,3 +31,13 @@ export const getUserBookings = async (): Promise<IBookings> => {
     } 
 
 }
+
+export const deleteBooking = async (id: string) => {
+    try {
+        const response = await apiClient.delete("bookings/" + id);
+        return response.data.data;
+    } catch(error: any){
+        console.log(error.response.data.message);
+        return error;
+    } 
+};
