@@ -1,14 +1,10 @@
-import { View, Text, Button } from 'react-native'
-import React, { useState } from 'react'
-import BookACar from '~/components/common/BookACar';
+import { View, Text } from 'react-native'
+import React from 'react'
 
 const Test = () => {
-
-  const [showModal, setShowModal] = useState(false);
-
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button title="Open Booking Modal" onPress={() => setShowModal(true)} />
+    <View>
+      <Text>Test</Text>
     </View>
   )
 }

@@ -1,6 +1,6 @@
-import { FontAwesome5 } from "@expo/vector-icons";
+import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 
 const TabsLayout = () => {
   return (
@@ -41,6 +41,7 @@ const TabsLayout = () => {
           ),
         }}
       />
+
       <Tabs.Screen
         name="Profile"
         options={{

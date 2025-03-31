@@ -8,8 +8,9 @@ import { IBooking } from '~/utils/types';
 import { format } from 'date-fns';
 import moment from 'moment';
 import { useRouter, Link } from 'expo-router';
-import Booking from './Booking';
 import { useBookingStore } from '~/store/useBookingStore';
+import { useAddBookingStore } from '~/store/useModalStore';
+import BookACar from '~/components/common/BookACar';
 
 const BookingScreen = () => {
 
@@ -19,6 +20,7 @@ const BookingScreen = () => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const { setBooking } = useBookingStore();
   const router = useRouter();
+  const { toggleModal, openModal } = useAddBookingStore();
 
 
   const renderItem = (item: IBooking) => { 
@@ -65,54 +67,60 @@ const BookingScreen = () => {
   )};
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-200 pb-[70]">
-      <View className="bg-[#1f2937] p-6 rounded-b-3xl shadow-lg mb-4">
+    <SafeAreaView className="flex-1 bg-gray-200">
+      {/* Header Section */}
+      <View className="bg-[#1f2937] p-6 rounded-b-3xl shadow-lg">
         <View className="flex-row items-center">
           <Avatar.Image
             size={70}
-            source={ require("@/assets/images/logo.png") }
+            source={require("@/assets/images/logo.png")}
             className="mr-4"
           />
           <View>
-            <Text className="text-white text-xl font-semibold">Welcome Back, { auth?.name }!</Text>
-            <Text className='text-sm text-gray-500'>{ auth?.id }</Text>
+            <Text className="text-white text-xl font-semibold">Welcome Back, {auth?.name}!</Text>
+            <Text className="text-sm text-gray-500">{auth?.id}</Text>
             <Text className="text-blue-200 text-sm">Ready for your next adventure?</Text>
           </View>
         </View>
-        <View className="mt-4 flex-row justify-around">
-          <TouchableOpacity className="items-center">
-            <IconButton icon="calendar" size={30} iconColor="white" />
-            <Text className="text-white text-sm">My Bookings</Text>
-          </TouchableOpacity>
-          <TouchableOpacity className="items-center">
-            <IconButton icon="account-circle" size={30} iconColor="white" />
-            <Text className="text-white text-sm">Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity className="items-center">
-            <IconButton icon="cog" size={30} iconColor="white" />
-            <Text className="text-white text-sm">Settings</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-      
-      <View className='p-4'>
+
+      {/* Main Content */}
+      <View className="p-4 gap-4 flex-1">
         <Searchbar
           placeholder="Search"
           onChangeText={setSearchQuery}
           value={searchQuery}
           style={{
             borderColor: "#1f2937",
-            boxShadow: "0px 0px 5px 0px black"
+            shadowColor: "black",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.3,
+            shadowRadius: 4,
+            elevation: 5,
           }}
         />
-      </View>
 
-      <FlatList
-        data={ bookings?.bookings }
-        renderItem={({ item }) => renderItem(item)}
-        keyExtractor={(item) => item.id}
-        contentContainerStyle={{ padding: 16, gap: 10 }}
-      />
+        <Button
+          icon="car"
+          mode="outlined"
+          buttonColor="#0078F0"
+          textColor="#ffffff"
+          onPress={toggleModal}
+          className="px-4 py-2"
+        >
+          Book A Car
+        </Button>
+
+        {openModal && <BookACar />}
+
+        {/* FlatList with padding to avoid bottom bar overlap */}
+        <FlatList
+          data={bookings?.bookings}
+          renderItem={({ item }) => renderItem(item)}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={{ paddingBottom: 60, gap: 10 }}
+        />
+      </View>
     </SafeAreaView>
   );
 };

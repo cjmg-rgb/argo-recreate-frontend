@@ -7,7 +7,8 @@ export const createBooking = async (booking: IBooking) => {
         return response.data.data;
     } catch(error: any){
         console.log(error.response.data.message);
-        return error;
+        throw Error(error.response.data.message);
+        
     }
 }
 
