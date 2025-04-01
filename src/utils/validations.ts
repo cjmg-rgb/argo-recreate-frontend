@@ -7,15 +7,26 @@ export const loginFormValidation = z.object({
 });
 
 export const addBookingFormValidation = z.object({
-    title: z.string(),
-    location: string(),
+    title: z.string().min(1, { message: "Required" }),
+    location: z.string().min(1, { message: "Required" }),
     date: z.date(),
-    pickUpTimeHour: z.number(),
-    dropOffTimeHour: z.number(),
-    carId: z.string(),
-    instruction: z.string()
+    pickUpTimeHour: z.number({
+      message: "Required",
+    }),
+    dropOffTimeHour: z.number({
+      message: "Required",
+    }),
+    instruction: z.string().min(1, { message: "Required" }),
+    carId: z.string().min(1, {
+      message: "Required",
+    }),
+  });
+
+export const editBookingFormValidation = addBookingFormValidation.extend({
+    id: z.string().min(1, { message: "Required" }),
 })
 
 
 export type loginFormInput = z.infer<typeof loginFormValidation>
 export type addBookingFormInput = z.infer<typeof addBookingFormValidation>
+export type editBookingFormInput = z.infer<typeof editBookingFormValidation>

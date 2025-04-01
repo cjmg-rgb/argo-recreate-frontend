@@ -1,5 +1,7 @@
-import { IBooking, IBookings } from "~/utils/types"
+import { IBooking, IBookings, IEditBookingForm } from "~/utils/types"
 import apiClient from "./apiClient";
+import { formatDateObjectToString } from "~/utils/helpers";
+import { MutationFunction } from "@tanstack/react-query";
 
 export const createBooking = async (booking: IBooking) => {
     try {
@@ -42,3 +44,22 @@ export const deleteBooking = async (id: string) => {
         return error;
     } 
 };
+
+export const editBooking: MutationFunction<IBooking, IEditBookingForm> = async({ id, date, ...rest}: IEditBookingForm) => { 
+    try {
+
+        const response = await apiClient.patch("bookings/" + id, {
+            date: formatDateObjectToString({
+                year: date!.getFullYear(),
+                month: date!.getMonth() + 1,
+                date: date!.getDate(),
+              }),
+            ...rest
+        });
+        return response.data.data;
+    } catch(error: any){
+        console.log(error.response.data.message);
+        return error;
+    } 
+
+}

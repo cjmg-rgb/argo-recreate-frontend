@@ -16,7 +16,14 @@ interface IBooking {
 
 const MyBookings: React.FC = () => {
   const { data: bookings } = useGetAllAbookings();
-  const [markedDates, setMarkedDates] = useState<{ [key: string]: { marked: boolean; dotColor: string; selected?: boolean; selectedColor?: string } }>({});
+  const [markedDates, setMarkedDates] = useState<{
+    [key: string]: {
+      marked: boolean;
+      dotColor: string;
+      selected?: boolean;
+      selectedColor?: string;
+    };
+  }>({});
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [events, setEvents] = useState<{ [key: string]: IBooking[] }>({});
 
@@ -38,26 +45,38 @@ const MyBookings: React.FC = () => {
   }, [bookings]);
 
   const handleDayPress = (day: DateData) => {
-    const newMarkedDates = Object.keys(markedDates).reduce((acc, key) => {
-      acc[key] = { ...markedDates[key], selected: false, selectedColor: undefined };
-      return acc;
-    }, {} as typeof markedDates);
-    
+    const newMarkedDates = Object.keys(markedDates).reduce(
+      (acc, key) => {
+        acc[key] = { ...markedDates[key], selected: false, selectedColor: undefined };
+        return acc;
+      },
+      {} as typeof markedDates
+    );
+
     setSelectedDate(day.dateString);
     setMarkedDates({
       ...newMarkedDates,
-      [day.dateString]: { ...newMarkedDates[day.dateString], selected: true, selectedColor: 'green' },
+      [day.dateString]: {
+        ...newMarkedDates[day.dateString],
+        selected: true,
+        selectedColor: 'green',
+      },
     });
   };
 
   return (
     <SafeAreaView className="flex-1 bg-gray-200">
-      <Appbar.Header style={{
-        backgroundColor: "#1f2937",
-      }}>
-        <Appbar.Content color='#ffffff' title="Bookings Calendar" className="text-white text-lg font-bold"  />
+      <Appbar.Header
+        style={{
+          backgroundColor: '#1f2937',
+        }}>
+        <Appbar.Content
+          color="#ffffff"
+          title="Bookings Calendar"
+          className="text-lg font-bold text-white"
+        />
       </Appbar.Header>
-      <View className="flex-1 p-4 gap-4">
+      <View className="flex-1 gap-4 p-4">
         <Calendar
           markedDates={markedDates}
           onDayPress={handleDayPress}
@@ -74,10 +93,10 @@ const MyBookings: React.FC = () => {
             data={events[selectedDate]}
             keyExtractor={(item) => item.id}
             contentContainerStyle={{
-              gap: 4
+              gap: 4,
             }}
             renderItem={({ item }) => (
-              <Card className="my-2 p-4 bg-white rounded-lg shadow-md overflow-hidden">
+              <Card className="my-2 overflow-hidden rounded-lg bg-white p-4 shadow-md">
                 <Card.Content>
                   <Text className="text-lg font-bold text-[#1f2937]">{item.title}</Text>
                   <Text className="text-gray-600">{item.instruction}</Text>

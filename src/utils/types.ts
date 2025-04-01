@@ -14,11 +14,9 @@ export interface IAddBookingForm {
   instruction: string;
 }
 
-
 export interface IEditBookingForm extends IAddBookingForm {
   id: string;
 }
-
 export interface EditUserDetails {
   name: string;
   department: string;
