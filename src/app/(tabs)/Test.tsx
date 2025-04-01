@@ -1,12 +1,18 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
 
 const Test = () => {
-  return (
-    <View>
-      <Text>Test</Text>
-    </View>
-  )
-}
+  const [date, setDate] = useState(Date());
 
-export default Test
+  useEffect(() => {
+    setDate(Date());
+  }, [date]);
+
+  return (
+    <View className="flex flex-1 items-center justify-center">
+      <Text className="text-3xl font-bold">{date}</Text>
+    </View>
+  );
+};
+
+export default Test;

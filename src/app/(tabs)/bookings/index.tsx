@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, FlatList, Text, Image, TouchableOpacity } from 'react-native';
-import { Appbar, Card, Avatar, Button, IconButton, Searchbar } from 'react-native-paper';
+import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { Appbar, Card, Avatar, Button, Searchbar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useGetUserBookings } from '~/hooks/booking/useGetUserBookings';
 import useAuthStore from '~/store/useAuthStore';
 import { IBooking } from '~/utils/types';
 import { format } from 'date-fns';
 import moment from 'moment';
-import { useRouter, Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useBookingStore } from '~/store/useBookingStore';
 import { useAddBookingStore } from '~/store/useModalStore';
 import BookACar from '~/components/common/BookACar';
@@ -21,19 +21,6 @@ const BookingScreen = () => {
   const router = useRouter();
   const { toggleModal, openModal } = useAddBookingStore();
 
-  // const sortedBookings = React.useMemo(() => {
-  //   return bookings?.bookings.sort((a: IBooking, b: IBooking) => {
-  //     const dateA = new Date(a.date).getTime();
-  //     const dateB = new Date(b.date).getTime();
-
-  //     // Ascending or Descending order
-  //     if (sortDirection === 'asc') {
-  //       return dateA - dateB; // Ascending
-  //     }
-  //     return dateB - dateA; // Descending
-  //   });
-  // }, [bookings, sortDirection]);
-
   const renderItem = (item: IBooking) => {
     const formattedDate = format(item.date, 'MMM dd, y');
     const status = moment(new Date()).isBefore(item.date) ? 'Upcoming' : 'Ongoing';
@@ -41,31 +28,49 @@ const BookingScreen = () => {
     return (
       <TouchableOpacity>
         <Card
-          className="mx-4 mb-4 rounded-xl"
-          mode="contained"
+          mode="outlined"
           style={{
-            backgroundColor: '#f3f4f6',
-            overflow: 'hidden',
-            elevation: 0,
-            shadowColor: 'transparent',
+            marginBottom: 15,
+            borderRadius: 16,
+            elevation: 4,
+            shadowColor: '#000',
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
+            backgroundColor: '#fff',
           }}>
           <Card.Title
             title={item.title}
             subtitle={`${status} - ${formattedDate}`}
             left={(props) => (
-              <Avatar.Icon {...props} icon="calendar" style={{ backgroundColor: '#4f46e5' }} />
+              <Avatar.Icon
+                {...props}
+                icon="calendar"
+                style={{ backgroundColor: '#4f46e5', marginRight: 10 }}
+              />
             )}
-            subtitleStyle={{
-              color: 'green',
+            titleStyle={{
+              fontSize: 18,
+              fontWeight: '600',
+              color: '#333',
             }}
-            titleStyle={{}}
+            subtitleStyle={{
+              fontSize: 14,
+              color: '#008000',
+            }}
           />
           <Card.Content>
-            <Text className="mb-2 text-gray-600">{item.instruction}</Text>
+            <Text style={{ fontSize: 14, color: '#666', marginBottom: 8 }}>{item.instruction}</Text>
             <Button
               icon="chevron-right"
-              className="self-end"
-              textColor="#4f46e5"
+              mode="contained"
+              buttonColor="#0078F0"
+              labelStyle={{ color: '#fff', fontWeight: '500' }}
+              style={{
+                borderRadius: 30,
+                alignSelf: 'flex-end',
+                elevation: 2,
+              }}
               onPress={() => {
                 setBooking(item);
                 router.push('/bookings/Booking');
@@ -79,40 +84,55 @@ const BookingScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-200">
-      <View className="rounded-b-3xl bg-[#1f2937] p-6 shadow-lg">
-        <View className="flex-row items-center">
-          <Avatar.Image size={70} source={require('@/assets/images/logo.png')} className="mr-4" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f7f7f7' }}>
+      <View
+        style={{
+          backgroundColor: '#1f2937',
+          padding: 20,
+          borderBottomLeftRadius: 30,
+          borderBottomRightRadius: 30,
+        }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Avatar.Image
+            size={70}
+            source={require('@/assets/images/logo.png')}
+            style={{ marginRight: 15 }}
+          />
           <View>
-            <Text className="text-xl font-semibold text-white">Welcome Back, {auth?.name}!</Text>
-            <Text className="text-sm text-gray-500">{auth?.id}</Text>
-            <Text className="text-sm text-blue-200">Ready for your next adventure?</Text>
+            <Text style={{ color: '#fff', fontSize: 22, fontWeight: '600' }}>{auth?.name}</Text>
+            <Text style={{ color: '#aaa', fontSize: 14 }}>{auth?.id}</Text>
+            <Text style={{ color: '#b0c4de', fontSize: 14 }}>San ka punta? to the moon</Text>
           </View>
         </View>
       </View>
 
-      <View className="flex-1 gap-4 p-4">
+      <View style={{ flex: 1, padding: 20 }}>
         <Searchbar
           placeholder="Search"
           onChangeText={setSearchQuery}
           value={searchQuery}
           style={{
+            marginBottom: 15,
+            borderRadius: 30,
+            elevation: 4,
+            backgroundColor: '#fff',
             borderColor: '#1f2937',
-            shadowColor: 'black',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.3,
-            shadowRadius: 4,
-            elevation: 5,
           }}
         />
 
         <Button
           icon="car"
-          mode="outlined"
-          buttonColor="#0078F0"
-          textColor="#ffffff"
+          mode="contained"
           onPress={toggleModal}
-          className="px-4 py-2">
+          style={{
+            marginBottom: 15,
+            backgroundColor: '#0078F0',
+            paddingVertical: 10,
+            borderRadius: 30,
+            shadowColor: '#0078F0',
+            elevation: 5,
+          }}
+          labelStyle={{ color: '#fff', fontWeight: '600' }}>
           Book A Car
         </Button>
 
@@ -124,7 +144,11 @@ const BookingScreen = () => {
           )}
           renderItem={({ item }) => renderItem(item)}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ paddingBottom: 60, gap: 10 }}
+          contentContainerStyle={{
+            paddingBottom: 60,
+            gap: 10,
+            paddingHorizontal: 10,
+          }}
         />
       </View>
     </SafeAreaView>
